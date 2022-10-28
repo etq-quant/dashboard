@@ -301,6 +301,7 @@ def get_table(ldf):
     .set_properties(subset=['Meeting Date','Current Rate'], **{'min-width': '100px'})\
     .set_properties(**{'text-align': 'center'})\
     .set_properties(subset=['Expected Rate'],**{'text-align': 'right'})\
+    .set_properties(subset=['Rate Change'],**{'text-align': 'center'})\
     .applymap(_color_red_or_green, subset=['Rate Change'])
     
     return fig
