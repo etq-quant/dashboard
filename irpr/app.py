@@ -15,13 +15,11 @@ st.set_page_config(
 )
 st.title("Interest Rate Probability | US Federal Reserve")
 
-
-st.table(get_table(ldf))
+#st.table(get_table(ldf))
+st.write(get_table(ldf).to_html(escape=False, index=False), unsafe_allow_html=True)
 
 dates = sorted(df['GV1_DATE'].unique())
-
 figs = [get_prob_line_by_date(df, d)[0] for d in dates[:4]]
-
 fig_line = get_expected_line(df)
 st.plotly_chart(fig_line)
 
