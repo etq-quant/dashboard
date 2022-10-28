@@ -2,8 +2,8 @@ import streamlit as st
 import pandas as pd
 from irpr import *
 
-df = pd.read_csv('./data.csv')
-ldf = pd.read_csv('./ldata.csv')
+df = pd.read_csv('data.csv')
+ldf = pd.read_csv('ldata.csv')
 
 st.set_page_config(
     page_title="Interest Rate Probability | US Federal Reserve",
