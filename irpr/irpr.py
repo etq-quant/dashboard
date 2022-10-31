@@ -277,11 +277,12 @@ def get_table(ldf):
     imax = max(map(float, icols))
     nldf['Meeting Date'] = pd.to_datetime(nldf['Meeting Date']).dt.strftime('%d-%b-%Y')
     nldf['Current Rate'] = nldf['Current Rate']+0.125
-    nldf['Expected Fed Rate'] = nldf.apply(lambda x: icols[np.nanargmax([x[i] for i in icols])], axis=1).astype(float)
-    nldf['Rate Change'] = (nldf['Expected Fed Rate'] - nldf['Expected Fed Rate'].shift()).fillna(nldf['Expected Fed Rate']-nldf['Current Rate'])
+    nldf['FED Rate (after)'] = nldf.apply(lambda x: icols[np.nanargmax([x[i] for i in icols])], axis=1).astype(float)
+    nldf['FED Rate (before)'] = nldf['FED Rate (after)'].shift().fillna(nldf['Current Rate'])
+    nldf['Rate Change'] = (nldf['FED Rate (after)'] - nldf['FED Rate (after)'].shift()).fillna(nldf['FED Rate (after)']-nldf['Current Rate'])
     nldf['Rate Change'] = nldf['Rate Change'].map(lambda x: '{:+0.0f} bps'.format(x*100) if x else '-')
     #nldf['Rate Change'] = ['-','+1000 bps','+75 bps', '+50 bps', '+25 bps', '-25 bps', '-50 bps', '-75 bps', '-100bps', '-1000bps']
-    nldf = nldf[['Meeting Date', 'Current Rate', 'Rate Change', 'Expected Fed Rate']+icols+['Instrument', 'Expected Rate']]
+    nldf = nldf[['Meeting Date', 'FED Rate (before)', 'Rate Change', 'FED Rate (after)']+icols+['Instrument', 'Expected Rate']]
     #return nldf
     fig = nldf.style.background_gradient(subset=icols, cmap='Blues', axis=1)\
     .bar(subset=["Expected Rate"], color='#EBDDE2', vmin=imin, vmax=imax)\
@@ -298,10 +299,9 @@ def get_table(ldf):
         ],
 
     ).set_properties(subset=icols, **{'min-width': '50px'})\
-    .set_properties(subset=['Meeting Date','Current Rate'], **{'min-width': '100px'})\
+    .set_properties(subset=['Meeting Date','FED Rate (before)'], **{'min-width': '100px'})\
     .set_properties(**{'text-align': 'center'})\
     .set_properties(subset=['Expected Rate'],**{'text-align': 'right'})\
-    .set_properties(subset=['Rate Change'],**{'text-align': 'center'})\
     .applymap(_color_red_or_green, subset=['Rate Change'])
     
     return fig
