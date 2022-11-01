@@ -266,7 +266,7 @@ def get_table(ldf):
         elif type(val)==int and val > 100:
             color = '#58D68D'
         return 'background: %s' % color
-
+    
     nldf = ldf[['GV1_DATE','Instrument', 'GEN_VAL3', 'expected_tp']+[i for i in ldf.columns if '.' in i]].copy()
     nldf.columns = ['{:.2f}'.format((float(i))) if '.' in i else i for i in nldf.columns]
     
@@ -283,7 +283,9 @@ def get_table(ldf):
     nldf['Rate Change'] = nldf['Rate Change'].map(lambda x: '{:+0.0f} bps'.format(x*100) if x else '-')
     #nldf['Rate Change'] = ['-','+1000 bps','+75 bps', '+50 bps', '+25 bps', '-25 bps', '-50 bps', '-75 bps', '-100bps', '-1000bps']
     nldf = nldf[['Meeting Date', 'FED Rate (before)', 'Rate Change', 'FED Rate (after)']+icols+['Instrument', 'Expected Rate']]
-    #return nldf
+    
+    current_rate_subset = pd.IndexSlice[0, 'FED Rate (before)']
+    
     fig = nldf.style.background_gradient(subset=icols, cmap='Blues', axis=1)\
     .bar(subset=["Expected Rate"], color='#EBDDE2', vmin=imin, vmax=imax)\
     .highlight_null(subset=icols, null_color="#FFF9E3").format(precision=2)\
@@ -302,6 +304,7 @@ def get_table(ldf):
     .set_properties(subset=['Meeting Date','FED Rate (before)'], **{'min-width': '100px'})\
     .set_properties(**{'text-align': 'center'})\
     .set_properties(subset=['Expected Rate'],**{'text-align': 'right'})\
-    .applymap(_color_red_or_green, subset=['Rate Change'])
+    .applymap(_color_red_or_green, subset=['Rate Change'])\
+    .applymap(lambda x: "background-color: #FFE87C", subset=current_rate_subset)
     
     return fig
