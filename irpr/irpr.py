@@ -287,9 +287,9 @@ def get_table(ldf):
     current_rate_subset = pd.IndexSlice[0, 'FED Rate (before)']
     
     fig = nldf.style.background_gradient(subset=icols, cmap='Blues', axis=1)\
-    .bar(subset=["Expected Rate"], color='#EBDDE2', vmin=imin, vmax=imax)\
+    .bar(subset=["Expected Rate"], color='#DADBDD', vmin=imin, vmax=imax)\
     .highlight_null(subset=icols, null_color="#FFF9E3").format(precision=2)\
-    .highlight_max(subset=['Expected Rate'], color='#D8BFD8', axis=0).set_table_styles(
+    .highlight_max(subset=['Expected Rate'], color='#BCC6CC', axis=0).set_table_styles(
         [{'selector': 'thead th',
         'props': [('background-color', '#36454F'), ('color', 'white')]},
         {'selector': 'thead th:first-child',
