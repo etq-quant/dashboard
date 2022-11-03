@@ -11,7 +11,7 @@ def get_prob_line_by_date(df, date):
 
     dates = sorted(tdf["GV1_DATE"].unique())
     labels = dates
-    baser = tdf["GEN_VAL3"].value_counts().index[0] + 0.125
+    baser = tdf["GEN_VAL3"].iloc[-1] + 0.125
     x_data = np.array(tdf["date"].tolist())
     sdf = tdf[[i for i in tdf.columns if "." in i]].dropna(how="all", axis=1).copy()
     rates = [float(x) for x in sdf.columns]
