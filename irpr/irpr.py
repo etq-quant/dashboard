@@ -168,7 +168,7 @@ def get_expected_line(df):
             mode="markers+lines",
             marker_symbol="hexagon",
             marker_size=6,
-            name="{} (W{}, month ago)".format(
+            name="{} (W{}, a month ago)".format(
                 datetime.strptime(labels[i], "%Y-%m-%d").strftime("%d-%b-%Y"),
                 datetime.strptime(labels[i], "%Y-%m-%d").isocalendar().week,
             ),
@@ -185,7 +185,7 @@ def get_expected_line(df):
             mode="markers+lines",
             marker_symbol="hexagon",
             marker_size=6,
-            name="{} (W{}, week ago)".format(
+            name="{} (W{}, a week ago)".format(
                 datetime.strptime(labels[i], "%Y-%m-%d").strftime("%d-%b-%Y"),
                 datetime.strptime(labels[i], "%Y-%m-%d").isocalendar().week,
             ),
