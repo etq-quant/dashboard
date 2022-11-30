@@ -137,7 +137,7 @@ def get_prob_line_by_date(df, date):
 
 def get_expected_line(df):
     a = np.array(sorted(df["date"].unique(), reverse=True))
-    df = df[df["date"].isin([a[0], a[7]])].copy()
+    df = df[df["date"].isin([a[0], a[6], a[29]])].copy()
 
     df["created_at"] = pd.to_datetime(df["created_at"])
 
@@ -155,12 +155,29 @@ def get_expected_line(df):
     labels = df["date"].unique().tolist()
 
     labels = sorted(df["date"].unique())
-    colors = ["rgb(49,130,189)", "rgb(67,67,67)"]
+    colors = ["#728FCE", "#4863A0", "rgb(67,67,67)"]
     mode_size = [4, 8, 12]
     line_size = [2, 3, 4]
     font_size = [8, 12, 16]
 
     i = 0
+    fig.add_trace(
+        go.Scatter(
+            x=x_data[i],
+            y=y_data[i],
+            mode="markers+lines",
+            marker_symbol="hexagon",
+            marker_size=6,
+            name="{} (W{}, month ago)".format(
+                datetime.strptime(labels[i], "%Y-%m-%d").strftime("%d-%b-%Y"),
+                datetime.strptime(labels[i], "%Y-%m-%d").isocalendar().week,
+            ),
+            line=dict(color=colors[i], width=line_size[i], dash="dot"),
+            connectgaps=True,
+        )
+    )
+
+    i = 1
     fig.add_trace(
         go.Scatter(
             x=x_data[i],
@@ -177,7 +194,7 @@ def get_expected_line(df):
         )
     )
 
-    i = 1
+    i = 2
     fig.add_trace(
         go.Scatter(
             x=x_data[i],
