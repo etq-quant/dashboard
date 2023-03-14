@@ -132,6 +132,8 @@ def get_prob_line_by_date(df, date):
         tdf[[i for i in tdf.columns if "." in i]].iloc[-2].fillna(0).rank()
         == tdf[[i for i in tdf.columns if "." in i]].iloc[-1].fillna(0).rank()
     )
+    fig.layout.xaxis.fixedrange = True
+    fig.layout.yaxis.fixedrange = True
     return fig, change, date
 
 
@@ -420,5 +422,6 @@ def get_table(ldf):
         .applymap(_color_red_or_green, subset=["Rate Change"])
         .applymap(lambda x: "background-color: #FFE87C", subset=current_rate_subset)
     )
-
+    fig.layout.xaxis.fixedrange = True
+    fig.layout.yaxis.fixedrange = True
     return fig
