@@ -323,7 +323,8 @@ def get_expected_line(df):
         legend=dict(orientation="h", yanchor="top", y=-0.2, xanchor="center", x=0.5),
         plot_bgcolor="white",
     )
-
+    fig.layout.xaxis.fixedrange = True
+    fig.layout.yaxis.fixedrange = True
     # fig.update_xaxes(visible=False)
     return fig
 
@@ -422,6 +423,4 @@ def get_table(ldf):
         .applymap(_color_red_or_green, subset=["Rate Change"])
         .applymap(lambda x: "background-color: #FFE87C", subset=current_rate_subset)
     )
-    fig.layout.xaxis.fixedrange = True
-    fig.layout.yaxis.fixedrange = True
     return fig
