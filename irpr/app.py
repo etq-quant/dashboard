@@ -1,7 +1,10 @@
 import streamlit as st
 import pandas as pd
 from irpr import *
-from myenv import datetime_text
+try:
+    from myenv import datetime_text
+except:
+    from irpr.myenv import datetime_text
 
 try:
     df = pd.read_csv("data.csv")
