@@ -3,6 +3,7 @@ import pandas as pd
 from irpr import *
 from myenv import datetime_text
 
+try:
     df = pd.read_csv("data.csv")
     ldf = pd.read_csv("ldata.csv")
 except:
