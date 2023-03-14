@@ -2,7 +2,10 @@ import streamlit as st
 import pandas as pd
 from irpr import *
 from datetime import datetime
+from pytz import timezone
 
+kltz = timezone('Asia/Kuala_Lumpur')
+datetimenow = datetime.now(kltz)
 try:
     df = pd.read_csv("data.csv")
     ldf = pd.read_csv("ldata.csv")
@@ -14,10 +17,9 @@ st.set_page_config(
     page_title="Interest Rate Probability | US Federal Reserve", layout="wide",
 )
 st.title("Interest Rate Probability | US Federal Reserve")
-
 # st.table(get_table(ldf))
 st.write(get_table(ldf).to_html(escape=False, index=False), unsafe_allow_html=True)
-st.caption('updated on {}'.format(datetime.now().strftime("%d/%m/%Y at %H:%M:%S")))
+st.caption('updated on {}'.format(datetimenow.strftime("%d/%m/%Y at %H:%M:%S")))
 
 dates = sorted(ldf["GV1_DATE"].unique())
 figs = [get_prob_line_by_date(df, d)[0] for d in dates[:4]]
