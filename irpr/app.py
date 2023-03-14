@@ -1,6 +1,7 @@
 import streamlit as st
 import pandas as pd
 from irpr import *
+from datetime import datetime
 
 try:
     df = pd.read_csv("data.csv")
@@ -16,6 +17,7 @@ st.title("Interest Rate Probability | US Federal Reserve")
 
 # st.table(get_table(ldf))
 st.write(get_table(ldf).to_html(escape=False, index=False), unsafe_allow_html=True)
+st.caption('updated on {}'.format(datetime.now().strftime("%d/%m/%Y at %H:%M:%S")))
 
 dates = sorted(ldf["GV1_DATE"].unique())
 figs = [get_prob_line_by_date(df, d)[0] for d in dates[:4]]
