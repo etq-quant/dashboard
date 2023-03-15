@@ -368,7 +368,7 @@ def get_table(ldf):
         inplace=True,
     )
 
-    icols = [i for i in nldf.columns if "." in i]
+    icols = sorted([i for i in nldf.columns if '.' in i])
     imin = min(map(float, icols))
     imax = max(map(float, icols))
     nldf["Meeting Date"] = pd.to_datetime(nldf["Meeting Date"]).dt.strftime("%d-%b-%Y")
