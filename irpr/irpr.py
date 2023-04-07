@@ -397,7 +397,7 @@ def get_table(ldf):
     fig = (
         nldf.style.background_gradient(subset=icols, cmap="Blues", axis=1)
         .bar(subset=["Expected Rate"], color="#DADBDD", vmin=imin, vmax=imax)
-        .highlight_null(subset=icols, null_color="#FFF9E3")
+        .highlight_null(subset=icols, color="#FFF9E3")
         .format(precision=2)
         .highlight_max(subset=["Expected Rate"], color="#BCC6CC", axis=0)
         .set_table_styles(
