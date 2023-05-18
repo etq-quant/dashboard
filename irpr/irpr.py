@@ -371,6 +371,7 @@ def get_table(ldf):
     icols = sorted([i for i in nldf.columns if '.' in i])
     imin = min(map(float, icols))
     imax = max(map(float, icols))
+    nldf = nldf.dropna(subset=icols, how='all', axis=0).copy()
     nldf["Meeting Date"] = pd.to_datetime(nldf["Meeting Date"]).dt.strftime("%d-%b-%Y")
     nldf["Current Rate"] = nldf["Current Rate"] + 0.125
     nldf["FED Rate (after)"] = nldf.apply(
