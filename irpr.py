@@ -143,6 +143,7 @@ def get_expected_line(df):
     str_7days = (pd.to_datetime(a[0]) - timedelta(days=7)).strftime('%Y-%m-%d')
     str_adj_30days = a[a<str_30days][0]
     str_adj_7days = a[a<str_7days][0]
+    df = df[df['date'].isin([a[0], str_adj_7days, str_adj_30days])].copy()
 
     df["created_at"] = pd.to_datetime(df["created_at"])
 
