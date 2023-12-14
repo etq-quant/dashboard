@@ -138,8 +138,11 @@ def get_prob_line_by_date(df, date):
 
 
 def get_expected_line(df):
-    a = np.array(sorted(df["date"].unique(), reverse=True))
-    df = df[df["date"].isin([a[0], a[6], a[29]])].copy()
+    a = np.array(sorted(df['date'].unique(), reverse=True))
+    str_30days = (pd.to_datetime(a[0]) - timedelta(days=30)).strftime('%Y-%m-%d')
+    str_7days = (pd.to_datetime(a[0]) - timedelta(days=7)).strftime('%Y-%m-%d')
+    str_adj_30days = a[a<str_30days][0]
+    str_adj_7days = a[a<str_7days][0]
 
     df["created_at"] = pd.to_datetime(df["created_at"])
 
